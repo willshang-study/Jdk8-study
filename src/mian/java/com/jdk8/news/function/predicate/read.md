@@ -17,7 +17,7 @@
 ## or
     同 and
 
-## isEqual
+## static isEqual
     Returns a predicate that tests if two arguments are equal according
     
     static <T> Predicate<T> isEqual(Object targetRef) {
