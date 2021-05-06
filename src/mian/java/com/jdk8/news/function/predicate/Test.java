@@ -1,9 +1,9 @@
 package mian.java.com.jdk8.news.function.predicate;
 
 import mian.java.com.jdk8.demo.bean.Car;
+import mian.java.com.jdk8.demo.bean.CarUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class Test {
 
     public static void main(String[] args) {
-        List<Car> list = Arrays.asList(new Car("audi",100000),new Car("benz",200000),new Car("bmw",300000),new Car("lexus",380000));
+        List<Car> list = CarUtil.initCars();
         // test
         filter(list, item -> item.getPrice() > 200000).forEach(item -> System.out.println("大于20w的车："+item));
         filter(list, item -> item.getPrice() < 200000).forEach(item -> System.out.println("小于20w的车："+item));

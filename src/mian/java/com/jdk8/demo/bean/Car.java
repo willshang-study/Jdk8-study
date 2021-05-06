@@ -17,4 +17,8 @@ public class Car {
     public String toString() {
         return "name:"+this.name+",price:"+this.price;
     }
+
+    public int compareByPrice(Car car){
+        return this.price - car.getPrice();
+    }
 }
