@@ -1,7 +1,15 @@
 ## stream
-## 1.Collection 接口的一个 default method 
-    扩充：接口中jdk8新增了 default 关键字：接口可以有自己的默认方法实现)
-    
-## 2.可以分为：
-    1. 中间流：本身还可以返回一个stream，可以继续对其操作
-    2. 结点流：操作已经得到了最终的结果，已经不可以对流进行操作
+    A sequence of elements supporting sequential and parallel aggregate operations. 
+    一连串的元素，支持串行和并行的聚合操作
+    函数式链式编程风格
+
+## Stream由三部分组成
+    * 源
+    * 零个或多个中间操作（intermediate operations）    惰性求值
+    * 终止操作（termediate operations）   及早求值
+
+* Collection提供了新的Stream()方法
+* 流不存储值，通过管道的方式获取值
+* 本质是函数式的，对流的操作会生成一个结果，不过并不会修改底层的数据源，集合可以作为流的底层数据源
+* 延迟查找，很多流操作（过滤，映射，排序等）都可以延迟实现
+* 每次创建的stream只能使用一次
