@@ -13,12 +13,12 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) throws Exception {
-        List<String> fieldList = Arrays.asList("name","price");
-        Car benz = new Car("benz-EClass",400000);
+        List<String> fieldList = Arrays.asList("brand","name","price");
+        Car benz = new Car("Benz","EClass",400000);
         Car unknownCar = new Car();
         System.out.println("复制属性前：unknownCar::::"+unknownCar);
-//        copyByField(benz,unknownCar,fieldList,Car.class);
-        copyByMethodName(benz,unknownCar,Car.class);
+        copyByField(benz,unknownCar,fieldList,Car.class);
+//        copyByMethodName(benz,unknownCar,Car.class);
         System.out.println("复制属性后：unknownCar::::"+unknownCar);
     }
 

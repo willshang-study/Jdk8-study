@@ -17,7 +17,7 @@ public class Test {
 
     public static void main(String[] args) {
         // 1. 对象实例::实例方法名
-        Car carBenz = new Car("Mercedes-Benz",500000);
+        Car carBenz = new Car();
         Supplier<String> supplier1 = carBenz::toString;
 
         // 2. 类名::静态方法名

@@ -9,16 +9,27 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Car {
+public class Car implements Machine{
+    private String brand = "default";
     private String name = "default";
     private Integer price = 0;
 
     @Override
     public String toString() {
-        return "name:"+this.name+",price:"+this.price;
+        return "{brand:"+this.brand+";name:"+this.name+";price:"+this.price+"}";
     }
 
     public int compareByPrice(Car car){
         return this.price - car.getPrice();
+    }
+
+    @Override
+    public void start() {
+        System.out.println("启动：：：");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("停止：：：");
     }
 }

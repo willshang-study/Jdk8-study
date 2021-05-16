@@ -1,5 +1,7 @@
 package mian.java.com.jdk8.news.functionalInterface;
 
+import mian.java.com.jdk8.demo.bean.Machine;
+
 public class Test {
 
     public static void main(String[] args) {
@@ -15,7 +17,7 @@ public class Test {
         person1.say("Hello World!");
         System.out.println(person1.getClass());
 
-        Car car1 = new Car() {
+        Machine car1  = new Machine() {
             @Override
             public void start() {
                 System.out.println("构造器 Car Start!");
@@ -53,15 +55,4 @@ interface Person{
     // 该方法为Object类的方法
     // any implementation of the interface will have an implementation from java.lang.Object or elsewhere
     String toString();
-    static void otherMethod(){
-        System.out.println("我是一个静态方法");
-    };
-    default void otherMethod2(){
-        System.out.println("我是一个default方法实现");
-    }
-}
-
-interface Car{
-    void start();
-    void stop();
 }
