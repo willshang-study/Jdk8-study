@@ -1,7 +1,7 @@
 package mian.java.com.jdk8.news.stream;
 
 import mian.java.com.jdk8.demo.bean.Car;
-import mian.java.com.jdk8.demo.bean.CarUtil;
+import mian.java.com.jdk8.demo.bean.CarFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class Test {
         // 2. Arrays的静态方法stream
         Stream<String> cars2 = Arrays.stream(new String[]{"lexus","benz","audi"});
         // 3. Collection的default stream方法 (最常用)
-        List<Car> carsList = CarUtil.initCars();
+        List<Car> carsList = CarFactory.buildCars();
         Stream<Car> cars3 = carsList.stream();
 
         /***构造stream的几种应用****/

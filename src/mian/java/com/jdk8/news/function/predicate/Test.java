@@ -1,7 +1,7 @@
 package mian.java.com.jdk8.news.function.predicate;
 
 import mian.java.com.jdk8.demo.bean.Car;
-import mian.java.com.jdk8.demo.bean.CarUtil;
+import mian.java.com.jdk8.demo.bean.CarFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class Test {
 
     public static void main(String[] args) {
-        List<Car> list = CarUtil.initCars();
+        List<Car> list = CarFactory.buildCars();
         // test
         filter(list, item -> item.getPrice() > 200000).forEach(item -> System.out.println("大于20w的车："+item));
         filter(list, item -> item.getPrice() < 200000).forEach(item -> System.out.println("小于20w的车："+item));

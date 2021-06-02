@@ -1,6 +1,5 @@
-package mian.java.com.jdk8.news.stream.senior;
+package mian.java.com.jdk8.news.stream;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,10 +7,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-/**
- *  1.并发实验
- *  2.短路实验
- */
 public class SeniorTest {
 
     public static void main(String[] args) {
@@ -19,7 +14,7 @@ public class SeniorTest {
 //        parallelTest();
 //        shortCircuit();
 //        removeDuplicate();
-        cross();
+//        cross();
     }
 
     /**
