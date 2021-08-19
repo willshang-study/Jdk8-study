@@ -7,8 +7,6 @@ public class Test {
 
     public static void main(String[] args) {
 
-
-
         // 类型擦除
         // javap -c Test.class 查看JVM字节码，并未有Integer和Number相关信息出现
         Amount<Integer> integerNumber = new Amount<>();
@@ -24,30 +22,30 @@ public class Test {
         Student<Integer,Integer> student = item -> item;
         System.out.println("学生的年龄为：：："+student.getAge(25));
     }
-}
 
-/**
- * @param <T> 泛型类。用于指定number属性的类型
- */
-@Getter
-@Setter
-class Amount<T> {
-    T amount;
-}
+    /**
+     * @param <T> 泛型类。用于指定number属性的类型
+     */
+    @Getter
+    @Setter
+    static class Amount<T> {
+        T amount;
+    }
 
-/**
- * 泛型接口和泛型方法。用于指定getAge方法的入参类型和返回类型
- * <R,V>定义在方法上，该方法无法在Lambda上使用
- */
-interface Car{
-    <R, V> R getName(V v);
-}
+    /**
+     * 泛型接口和泛型方法。用于指定getAge方法的入参类型和返回类型
+     * <R,V>定义在方法上，该方法无法在Lambda上使用
+     */
+    interface Car{
+        <R, V> R getName(V v);
+    }
 
-/**
- *
- * @param <R>定义在接口层级
- * @param <V>定义在接口层级
- */
-interface Student<R, V> {
-    R getAge(V v);
+    /**
+     *
+     * @param <R>定义在接口层级
+     * @param <V>定义在接口层级
+     */
+    interface Student<R, V> {
+        R getAge(V v);
+    }
 }

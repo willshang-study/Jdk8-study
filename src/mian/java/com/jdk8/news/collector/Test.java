@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Test {
 
     public static void main(String[] args) {
-
+        groupingBy();
     }
 
     /**
@@ -21,15 +21,15 @@ public class Test {
     static void groupingBy(){
         List<Car> carList = CarFactory.buildCars();
 
-        // 1
+        // 1 分组
         Map<String,List<Car>> carMap = carList.stream().collect(Collectors.groupingBy(Car::getBrand));
         carMap.entrySet().forEach(System.out::println);
 
-        // 2
+        // 2 计数
         Map<String,Long> carCountMap = carList.stream().collect(Collectors.groupingBy(Car::getBrand,Collectors.counting()));
         carCountMap.entrySet().forEach(System.out::println);
 
-        // 3
+        // 3 分区
         Map<Boolean,List<Car>> carPartition = carList.stream().collect(Collectors.partitioningBy(item -> item.getPrice() < 300000));
         carPartition.entrySet().forEach(System.out::println);
     }
