@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -19,6 +18,11 @@ import java.util.function.Supplier;
  */
 public class Test {
 
+    static Map<String,Supplier<Fruit>> map = new HashMap<>();
+    static{
+        map.put("orange",Orange::new);
+        map.put("apple",Apple::new);
+    }
     public static void main(String[] args) {
 
         // 1. 对象实例::实例方法名
@@ -37,6 +41,15 @@ public class Test {
 
         // 4. ClassName::new (构造器引用)
         Supplier<Car> carSupplier = Car::new;  //构造函数与Supplier的get入参（无），返回值（Car）一致
+        BiFunction<String,Integer,Car> carSupplier2 = Car::new;
+
+        // 5.关于构造器方法引用的有趣实验
+        giveMeFruit("apple");
+
+    }
+
+    static Fruit giveMeFruit(String fruitName){
+        return map.get(fruitName).get();
     }
 
     @Setter
@@ -61,3 +74,6 @@ public class Test {
         }
     }
 }
+interface Fruit{}
+class Apple implements Fruit{}
+class Orange implements Fruit{}

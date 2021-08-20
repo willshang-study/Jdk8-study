@@ -4,6 +4,7 @@ import mian.java.com.jdk8.demo.bean.Car;
 import mian.java.com.jdk8.demo.bean.CarFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -11,64 +12,39 @@ import java.util.function.Predicate;
 public class Test {
 
     public static void main(String[] args) {
-        List<Car> list = CarFactory.buildCars();
-        // test
-        filter(list, item -> item.getPrice() > 200000).forEach(item -> System.out.println("大于20w的车："+item));
-        filter(list, item -> item.getPrice() < 200000).forEach(item -> System.out.println("小于20w的车："+item));
+        List<Car> carList = Arrays.asList(
+                new Car("Lexus","LS600H",1000000),
+                new Car("Benz","S600L",1000000),
+                new Car("Tesla","ModelY",300000),
+                new Car("Honda","Fit",100000),
+                new Car("Toyota","Avalon",200000),
+                new Car("Lexus","ES200",350000));
 
-        // 使用stream的filter方法，也是接收一个Predicate
-        list.stream().filter(item -> Objects.equals(item.getName(),"lexus")).forEach(item -> System.out.println("名字为lexus的车："+item));
+        Predicate<Car> isLexusCar = car -> "Lexus".equals(car.getBrand());
+        Predicate<Car> isExpensiveCar = car -> car.getPrice() > 500000;
 
-        // and
-        andFilter(list, item -> item.getPrice() > 200000, item -> Objects.equals(item.getName(),"lexus")).forEach(item -> System.out.println("大于20w的车 and 名字为lexus的车："+item));
+        // 1 雷克萨斯车
+        filter(carList, isLexusCar);
 
-        // negate
-        negateFilter(list, item -> Objects.equals(item.getName(),"lexus")).forEach(item -> System.out.println("名字不是lexus的车："+item));
+        // 2 雷克萨斯且大于50w的车
+        filter(carList, isLexusCar.and(isExpensiveCar));
 
-        // or
-        orFilter(list, item -> item.getPrice() < 200000, item -> Objects.equals(item.getName(),"lexus")).forEach(item -> System.out.println("小于于20w的车 or 名字为lexus的车："+item));
+        // 2 雷克萨斯且或50w的车
+        filter(carList, isLexusCar.or(isExpensiveCar));
+
+        // 4 不是雷克萨斯的车
+        filter(carList, isLexusCar.negate());
 
         // isEqual
         System.out.println(Predicate.isEqual("aaa").test("aaa"));
     }
 
-    static List<Car> filter(List<Car> cars,Predicate<Car> filterAction){
-        List<Car> newList = new ArrayList<>();
+    static void filter(List<Car> cars,Predicate<Car> filterAction){
         cars.stream().forEach(item -> {
             if(filterAction.test(item)){
-                newList.add(item);
+                System.out.println(item.getName());
             }
         });
-        return newList;
-    }
-
-    static List<Car> andFilter(List<Car> cars,Predicate<Car> filter1,Predicate<Car> filter2){
-        List<Car> newList = new ArrayList<>();
-        cars.stream().forEach(item -> {
-            if(filter1.and(filter2).test(item)){
-                newList.add(item);
-            }
-        });
-        return newList;
-    }
-
-    static List<Car> negateFilter(List<Car> cars,Predicate<Car> filterAction){
-        List<Car> newList = new ArrayList<>();
-        cars.stream().forEach(item -> {
-            if(filterAction.negate().test(item)){
-                newList.add(item);
-            }
-        });
-        return newList;
-    }
-
-    static List<Car> orFilter(List<Car> cars,Predicate<Car> filter1,Predicate<Car> filter2){
-        List<Car> newList = new ArrayList<>();
-        cars.stream().forEach(item -> {
-            if(filter1.or(filter2).test(item)){
-                newList.add(item);
-            }
-        });
-        return newList;
+        System.out.println("************************************");
     }
 }
