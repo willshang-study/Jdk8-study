@@ -1,4 +1,4 @@
-package mian.java.com.jdk8.news.methodReference;
+package mian.java.com.jdk8.newfeatures.chapter01;
 
 import java.util.Comparator;
 import java.util.function.Function;
@@ -10,8 +10,7 @@ import java.util.function.Supplier;
  * 3. 类名::实例方法名
  * 4. ClassName::new (构造器引用)
  */
-public class Test {
-
+public class MethodReference {
     public static void main(String[] args) {
 
         // 1. 类名::静态方法名
