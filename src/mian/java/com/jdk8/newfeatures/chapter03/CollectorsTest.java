@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import static java.util.stream.Collectors.*; //static静态导入,导入这个类里的静态成员（静态方法、静态变量）
 
 /**
- * 规约和汇总 counting,minBy,maxBy
+ * 规约和汇总
+ *  总数、最大值、最小值  counting、minBy、maxBy
+ *  汇总 summing、averagingInt、IntSummaryStatistics
  * 分组
  * 分区
  */
@@ -28,8 +31,41 @@ public class CollectorsTest {
                 new Transaction(alan, 2012, 950)
         );
 
-        // counting收集器在和其他收集器联合使用的时候特别有用，后面会谈到这一点。
-        transactions.stream().map(item->item.getTrader().getCity()).distinct().collect(counting());
+        // 1. counting 收集器在和其他收集器联合使用的时候特别有用，后面会谈到这一点。
+        Long count = transactions.stream().collect(counting());
+        Long count2 = transactions.stream().count();
+        System.out.println("************1************");
+        System.out.println("1. counting::"+count);
+
+        // 2. minBy 找到最小的交易 stream.min()来实现
+        Optional<Transaction> transactionMin = transactions.stream().collect(minBy(Comparator.comparingInt(Transaction::getValue)));
+        System.out.println("************2************");
+        transactionMin.ifPresent(System.out::println);
+
+        // 3. maxBy 找到最大的交易 stream.max()来实现
+        Optional<Transaction> transactionMax = transactions.stream().collect(maxBy(Comparator.comparingInt(Transaction::getValue)));
+        System.out.println("************3************");
+        transactionMax.ifPresent(System.out::println);
+
+        // 4. summing累加 IntStream.sum()来实现
+        int summing = transactions.stream().collect(summingInt(Transaction::getValue));
+        System.out.println("************4************");
+        System.out.println(summing);
+
+        // 5. averagingInt平均值
+        Double averaging = transactions.stream().collect(averagingInt(Transaction::getValue));
+        System.out.println("************5************");
+        System.out.println(averaging);
+
+        // 6. 获取以上五个值的概况对象 IntSummaryStatistics
+        IntSummaryStatistics summary = transactions.stream().collect(summarizingInt(Transaction::getValue));
+        System.out.println("************6************");
+        System.out.println(summary);
+
+        // 7. 连接字符串
+        String names = transactions.stream().map(item->item.getTrader().getName()).distinct().collect(joining("-"));
+        System.out.println("************7************");
+        System.out.println(names);
     }
 
     /**

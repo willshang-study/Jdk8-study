@@ -1,6 +1,5 @@
 package mian.java.com.jdk8.newfeatures.chapter02;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +20,8 @@ public class StreamTest1 {
         new Dish("season fruit", true, 120, Dish.Type.OTHER),
         new Dish("pizza", true, 550, Dish.Type.OTHER),
         new Dish("prawns", false, 300, Dish.Type.FISH),
-        new Dish("salmon", false, 1450, Dish.Type.FISH) );
+        new Dish("salmon", false, 1450, Dish.Type.FISH)
+        );
 
         // 1.1谓词筛选
         menu.stream().filter(item -> item.getCalories()>1000).map(Dish::getCalories).forEach(System.out::println);
@@ -70,9 +70,9 @@ public class StreamTest1 {
         System.out.println("************3.3 最小值："+min+"*************");
 
         // 4.1 数值流
-        menu.stream().mapToInt(item->item.getCalories()).sum();
-        menu.stream().mapToInt(item->item.getCalories()).max();
-        menu.stream().mapToInt(item->item.getCalories()).min();
+        menu.stream().mapToInt(Dish::getCalories).sum();
+        menu.stream().mapToInt(Dish::getCalories).max();
+        menu.stream().mapToInt(Dish::getCalories).min();
         // 4.2 数值范围
         IntStream.range(0,5).forEach(System.out::println);
         IntStream.rangeClosed(0,5).forEach(System.out::println);// 闭区间，包含5
