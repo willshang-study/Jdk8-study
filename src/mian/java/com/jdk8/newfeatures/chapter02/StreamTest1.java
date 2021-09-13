@@ -107,5 +107,15 @@ public class StreamTest1 {
             this.calories = calories;
             this.type = type;
         }
+
+        @Override
+        public String toString() {
+            return "Dish{" +
+                    "name='" + name + '\'' +
+                    ", vegetarian=" + vegetarian +
+                    ", calories=" + calories +
+                    ", type=" + type +
+                    '}';
+        }
     }
 }
