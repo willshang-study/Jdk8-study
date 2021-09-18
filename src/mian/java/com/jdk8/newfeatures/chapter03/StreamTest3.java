@@ -32,7 +32,7 @@ public class StreamTest3 {
             // 1.取出key -> city
             String city = transaction.getTrader().getCity();
             // 2.拿到value-> transactionList
-            List<Transaction> transactionList = result.get(transaction.getTrader().getCity());
+            List<Transaction> transactionList = result.get(city);
             if(transactionList == null){
                 //首次需新建
                 transactionList = new ArrayList<>();
@@ -44,7 +44,7 @@ public class StreamTest3 {
         result.entrySet().forEach(item-> System.out.println(item.getKey()+":::"+item.getValue()));
         System.out.println("**********************************");
 
-        // jdk8之后的做法
+//        // jdk8的做法
         Map<String,List<Transaction>> result2 = transactions.stream().collect(Collectors.groupingBy(item->item.getTrader().getCity()));
         result2.entrySet().forEach(item-> System.out.println(item.getKey()+":::"+item.getValue()));
     }

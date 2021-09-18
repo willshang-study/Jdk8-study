@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*; //static静态导入,导入这个类里的静态成员（静态方法、静态变量）
 
@@ -62,7 +65,7 @@ public class CollectorsTest1 {
         System.out.println(summary);
 
         // 7. 连接字符串
-        String names = transactions.stream().map(item->item.getTrader().getName()).distinct().collect(joining("-"));
+        String names = transactions.stream().map(item->item.getTrader().getName()).distinct().collect(joining("-","NAME:","。"));
         System.out.println("************7************");
         System.out.println(names);
 
@@ -70,7 +73,14 @@ public class CollectorsTest1 {
         Map<String,List<Transaction>> cityMap = transactions.stream().collect(groupingBy(item->item.getTrader().getCity()));
         System.out.println(cityMap);
 
-        // 9.多级分组（交易列表按交易者名称，交易者所在城市分组）
+        // 9.1 多级分组（交易列表按交易者名称，交易者所在城市分组）
+        Function<Transaction, String> classifierCity = item->item.getTrader().getCity();
+        Function<Transaction, String> classifierName = item->item.getTrader().getName();
+        Collector<Transaction, ?, Map<String, List<Transaction>>> downstream = groupingBy(classifierName);
+        Collector<Transaction, ?, Map<String,Map<String,List<Transaction>>>> collector = Collectors.groupingBy(classifierCity, downstream);
+        Map<String,Map<String,List<Transaction>>> cityNameMap =  transactions.stream().collect(collector);
+        System.out.println(cityNameMap);
+        // 9.2 多级分组（交易列表按交易者名称，交易者所在城市分组）
         Map<String,Map<String,List<Transaction>>> byCityNameMap =
                 transactions.stream().collect(
                         groupingBy(transaction -> transaction.getTrader().getCity(), // 一级分类
