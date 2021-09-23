@@ -1,4 +1,4 @@
-package mian.java.com.jdk8.newfeatures.chapter04;
+package mian.java.com.jdk8.newfeatures.chapter03;
 
 import lombok.Getter;
 import lombok.Setter;
