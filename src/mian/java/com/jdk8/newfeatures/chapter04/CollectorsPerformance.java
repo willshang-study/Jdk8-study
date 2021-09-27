@@ -17,25 +17,38 @@ public class CollectorsPerformance {
 
         // 1. 串行流
         OptionalLong minTime = LongStream.rangeClosed(1,10).map(i->{
-            long start = System.currentTimeMillis();
-            partitionPrimes(100000,false);
-            long period = System.currentTimeMillis() - start;
+            long start = System.nanoTime();
+            partitionPrimes(10000,false);
+            long period = System.nanoTime() - start;
             return period;
         }).min();
-        System.out.println("串行流::"+minTime.getAsLong());
+        System.out.println("串行时间::"+minTime.getAsLong());
+
+        // 1. 并行流
+        OptionalLong minTimeParallel = LongStream.rangeClosed(1,10).map(i->{
+            long start = System.nanoTime();
+            partitionPrimes(10000,true);
+            long period = System.nanoTime() - start;
+            return period;
+        }).min();
+        System.out.println("并行时间::"+minTimeParallel.getAsLong());
     }
 
+    /**
+     * 使用【Collectors.groupingBy】
+     */
     static Map<Boolean, List<Integer>> partitionPrimes(int n,boolean isParallel){
         Collector<Integer,?,Map<Boolean, List<Integer>>> collector = Collectors.partitioningBy(CollectorsPerformance::isPrimes);
 
+        // 【以下为错误示例】入参不对，并不能像Stream.collect接收Collector对象
         // IntStream 的 collect 方法仅有一个<R> R collect(Supplier<R> supplier, ObjIntConsumer<R> accumulator, BiConsumer<R, R> combiner)
         // List<Integer> list = IntStream.rangeClosed(0,n).collect(ArrayList::new,ArrayList::add,List::addAll);
 //        IntStream.rangeClosed(0,n).collect(collector); // 入参不对，并不能像Stream.collect接收Collector对象
 
         if(isParallel){
-            return IntStream.rangeClosed(0, n).boxed().parallel().collect(collector);
+            return IntStream.rangeClosed(2, n).boxed().parallel().collect(collector);
         }else {
-            return IntStream.rangeClosed(0,n).boxed().collect(collector);
+            return IntStream.rangeClosed(2,n).boxed().collect(collector);
         }
     }
 

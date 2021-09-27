@@ -22,8 +22,20 @@ public class MyCollectorsPerformance {
             return period;
         }).min();
         System.out.println("串行流::"+minTime.getAsLong());
+
+        // 1. 并行流
+        OptionalLong minTimeParallel = LongStream.rangeClosed(1,10).map(i->{
+            long start = System.currentTimeMillis();
+            partitionPrimes(100000,true);
+            long period = System.currentTimeMillis() - start;
+            return period;
+        }).min();
+        System.out.println("并行流::"+minTimeParallel.getAsLong());
     }
 
+    /**
+     * 使用自定义的【MyCollector】
+     */
     static Map<Boolean, List<Integer>> partitionPrimes(int n, boolean isParallel){
         Collector<Integer,?,Map<Boolean, List<Integer>>> collector = new MyCollector();
         if(isParallel){
