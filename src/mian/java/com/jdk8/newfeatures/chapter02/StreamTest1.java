@@ -41,6 +41,8 @@ public class StreamTest1 {
         // 1.6 flatmap
         menu.stream().flatMap(item -> Arrays.stream(item.getOtherNameList())).distinct().forEach(System.out::println);
         System.out.println("*************************");
+        // 1.7 peek
+        menu.stream().peek(item -> item.setCalories(item.getCalories()+10000)).forEach(System.out::println);
 
         // 2.1 匹配 anyMatch
         boolean hasHighHeat = menu.stream().anyMatch(item->item.getCalories()>500);
