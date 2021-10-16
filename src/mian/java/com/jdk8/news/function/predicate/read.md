@@ -1,16 +1,16 @@
 ## predicate (谓语)
 
-## test 
+## test1 
     Represents a predicate (boolean-valued function) of one argument.
     接收一个参数，返回一个boolean   
     
 ## and
-    currentPredicate.test(T) && otherPredicate.test(T)  
+    currentPredicate.test1(T) && otherPredicate.test1(T)  
     return的是一个Lambda表达式
     返回 一个 Predicate<T>
    
 ## negate
-    !currentPredicate.test(T)
+    !currentPredicate.test1(T)
     return的是一个Lambda表达式
     返回 一个 Predicate<T>
     
@@ -27,5 +27,5 @@
     }
 
 ## 为静态方法，接口可直接调用，接收一个参数，返回一个Predicate
-    System.out.println(Predicate.isEqual("aaa").test("aaa"));
+    System.out.println(Predicate.isEqual("aaa").test1("aaa"));
     
