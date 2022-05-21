@@ -65,7 +65,7 @@ public class CollectorsTest1 {
         System.out.println(summary);
 
         // 7. 连接字符串
-        String names = transactions.stream().map(item->item.getTrader().getName()).distinct().collect(joining("-","NAME:","。"));
+        String names = transactions.stream().map(item->item.getTrader().getName()).distinct().collect(Collectors.joining("-"));
         System.out.println("************7************");
         System.out.println(names);
 
